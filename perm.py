@@ -48,10 +48,19 @@ def subset_2(string, curr_string, res):
         subset_2(string[i+1:],  curr_string, res)
         curr_string = curr_string[:-1]
 
-def perm_1(string, idx, curr_string, res):
-    for i in range(idx, len(string)):
+
+#https://leetcode.com/problems/subsets/discuss/27281/A-general-approach-to-backtracking-questions-in-Java-(Subsets-Permutations-Combination-Sum-Palindrome-Partitioning)
+#Passping original string
+def perm_1(string, curr_string, res):
+    if len(curr_string) == len(string):
+        res.append(curr_string)
+        return
+
+    for i in range(len(string)):
+        if string[i] in curr_string:
+            continue
         curr_string += string[i]
-        subset_1(string, idx+1, curr_string, res)
+        perm_1(string, curr_string, res)
         curr_string = curr_string[:-1]
 
 res = []
@@ -62,6 +71,11 @@ print (res)
 res = []
 string = 'abc'
 subset_2(string, '', res)
+print (res)
+
+res = []
+string = 'abc'
+perm_1(string, '', res)
 print (res)
 
 #res = []
