@@ -32,27 +32,59 @@ def subset_dup(string, curr_string, res):
 
     subset(string [i:], curr_string, res)
 
-res = []
-string='abcef'
-perm(string, '', res)
-print (res)
-print (len(res))
-print (math.factorial(len(string)))
+#Passing original string + idx
+def subset_1(string, idx, curr_string, res):
+    res.append(curr_string[:])
+    for i in range(idx, len(string)):
+        curr_string += string[i]
+        subset_1(string, i+1, curr_string, res)
+        curr_string = curr_string[:-1]
+
+#Passing modified string
+def subset_2(string, curr_string, res):
+    res.append(curr_string[:])
+    for i in range(len(string)):
+        curr_string += string[i]
+        subset_2(string[i+1:],  curr_string, res)
+        curr_string = curr_string[:-1]
+
+def perm_1(string, idx, curr_string, res):
+    for i in range(idx, len(string)):
+        curr_string += string[i]
+        subset_1(string, idx+1, curr_string, res)
+        curr_string = curr_string[:-1]
 
 res = []
-subset(string, '', res)
+string = 'abc'
+subset_1(string, 0, '', res)
 print (res)
-print ('real len', len(res))
-print ('math len', 2 ** len(string))
 
-
-string= 'abab'
-#join: '123'.join('abc') : a 123 b 123 c (without spaces)
-
-string = ''.join(sorted(string))
 res = []
-subset_dup(string, '', res)
+string = 'abc'
+subset_2(string, '', res)
 print (res)
-print ('real len', len(res))
-print ('math len', 2 ** len(string))
+
+#res = []
+#string='abcef'
+#perm(string, '', res)
+#print (res)
+#print (len(res))
+#print (math.factorial(len(string)))
+#
+#res = []
+#subset(string, '', res)
+#print (res)
+#print ('real len', len(res))
+#print ('math len', 2 ** len(string))
+#
+#
+#string= 'abab'
+##join: '123'.join('abc') : a 123 b 123 c (without spaces)
+#
+#string = ''.join(sorted(string))
+#res = []
+#subset_dup(string, '', res)
+#print (res)
+#print ('real len', len(res))
+#print ('math len', 2 ** len(string))
 
