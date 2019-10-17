@@ -63,6 +63,16 @@ def perm_1(string, curr_string, res):
         perm_1(string, curr_string, res)
         curr_string = curr_string[:-1]
 
+def perm_2(string, curr_string, res):
+    if not string:
+        res.append(curr_string[:])
+        return
+
+    for i in range(len(string)):
+        curr_string += string[i]
+        perm_2(string[0:i] + string[i+1:], curr_string, res)
+        curr_string = curr_string[:-1]
+
 res = []
 string = 'abc'
 subset_1(string, 0, '', res)
@@ -76,6 +86,11 @@ print (res)
 res = []
 string = 'abc'
 perm_1(string, '', res)
+print (res)
+
+res = []
+string = 'abc'
+perm_2(string, '', res)
 print (res)
 
 #res = []
