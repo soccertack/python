@@ -2,6 +2,13 @@ import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
+import pandas as pd
+import sys
+
+macro_data = pd.read_csv('macro.csv')
+#print (macro_data)
+print (macro_data['x86 Nested'])
+print (macro_data.shape)
 
 gs = mpl.gridspec.GridSpec(2, 1)
 gs.update(wspace=0.1, hspace=0.01)
@@ -10,6 +17,19 @@ plt.subplot(gs[0])
 frame1 = plt.gca()
 frame1.axes.get_xaxis().set_visible(False)
 plt.plot(np.arange(10),np.random.random([10]),color='deeppink')
+
+#n_groups: num of applications
+n_groups = macro_data.shape[0]
+
+config_names = list(macro_data)[1:]
+print (config_names)
+for i, config in enumerate(config_names):
+	means_frank = macro_data[config]
+	index = np.arange(n_groups)
+	bar_width = 0.1
+	rects1 = plt.bar(index+i*bar_width, means_frank, bar_width,
+			 color='b',
+			 label='Frank')
 
 
 plt.subplot(gs[1])
