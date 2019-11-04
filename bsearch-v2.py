@@ -27,7 +27,7 @@ def basic(larger =True):
         elif nums[mid] > target:
             hi = mid - 1
 
-    if lo == hi:
+    if lo == hi or lo == hi + 1:
         if nums[lo] > target:
             ret = lo
             if not larger:
