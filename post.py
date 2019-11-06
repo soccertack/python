@@ -19,7 +19,7 @@ def postorderTraversal(root):
     res = []
 
     while stack:
-        n = stack.pop()
+        n = stack[-1]
         has_child_to_visit = False
 
         #print "pop and at", n.val
@@ -28,7 +28,6 @@ def postorderTraversal(root):
                 continue
             if child not in visited:
                 visited.add(child)
-                stack.append(n)
                 stack.append(child)
                 #print "push child", child.val, "from ", n.val
                 has_child_to_visit = True
@@ -37,6 +36,7 @@ def postorderTraversal(root):
         if not has_child_to_visit:
             #print "done node", n.val
             res.append(n.val)
+            stack.pop()
 
     return res
 
