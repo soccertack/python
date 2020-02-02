@@ -20,6 +20,25 @@ def bisect_right(a, x, lo=0, hi=None):
         else: lo = mid+1
     return lo
 
+def my_bisect_left(nums, target):
+
+    lo = 0
+    hi = len(nums)
+    found = -1
+
+    while lo < hi:
+        mid = (lo + hi) // 2
+
+        if target == nums[mid]:
+            found = mid
+            hi = mid
+        elif target > nums[mid]:
+            lo = mid + 1
+        else:
+            hi = mid
+
+    return found
+
 def my_bisect(nums, target, left):
 
     lo = 0
@@ -55,12 +74,12 @@ for i in range(100000):
     target = random.randint(0, input_range)
 
     res = bisect.bisect_left(nums, target)
-    if nums[res] != target:
+    if res == len(nums) or nums[res] != target:
         res = -1
 
-    my_res = my_bisect(nums, target, True)
+    my_res = my_bisect_left(nums, target)
     if res != my_res:
-        print 'LEFT NOT CORRECT', 'lib', res, 'mine is', my_res
+        print 'LEFT NOT CORRECT', 'target:', target, 'lib', res, 'mine is', my_res
         break
 
     my_res = my_bisect(nums, target, False)
